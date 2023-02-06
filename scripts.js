@@ -101,13 +101,13 @@ function loop() {
   if ( (ball.x < 0 || ball.x > canvas.width) && !ball.resetting) {
     ball.resetting = true;
     // if player 1 hits ball past player 2
-    if(ball.x > canvas.width){
-    score1 = parseInt(document.getElementById('score1').innerHTML) + 1;
-    }  
-    // if player 2 hits ball by player 1
-    else if(ball.x < 0){
-    score2 = parseInt(document.getElementById('score2').innerHTML) + 1;
-    }
+//     if(ball.x > canvas.width){
+//     score1 = parseInt(document.getElementById('score1').innerHTML) + 1;
+//     }  
+//     // if player 2 hits ball by player 1
+//     else if(ball.x < 0){
+//     score2 = parseInt(document.getElementById('score2').innerHTML) + 1;
+//     }
     // give some time for the player to recover before launching the ball again
     setTimeout(() => {
       ball.resetting = false;

@@ -7,6 +7,8 @@ const maxPaddleY = canvas.height - grid - paddleHeight;
 
 var paddleSpeed = 6;
 var ballSpeed = 5;
+var score1 = document.getElementById('score1').innerHTML;
+var score2 = document.getElementById('score2').innerHTML;
 
 const leftPaddle = {
   // start in the middle of the game on the left side
@@ -98,7 +100,14 @@ function loop() {
   // reset ball if it goes past paddle (but only if we haven't already done so)
   if ( (ball.x < 0 || ball.x > canvas.width) && !ball.resetting) {
     ball.resetting = true;
-
+    // if player 1 hits ball past player 2
+    if(ball.x > canvas.width){
+    score1 = parseInt(document.getElementById('score1').innerHTML) + 1;
+    }  
+    // if player 2 hits ball by player 1
+    elseif(ball.x < 0){
+    score2 = parseInt(document.getElementById('score2').innerHTML) + 1;
+    }
     // give some time for the player to recover before launching the ball again
     setTimeout(() => {
       ball.resetting = false;

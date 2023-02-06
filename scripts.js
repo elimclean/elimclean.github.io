@@ -133,7 +133,6 @@ function loop() {
   }
   
   // score
-  context.font = "50px";
   context.fillText(score1, 200, 50);
   context.fillText(score2, 560, 50);
   

@@ -10,19 +10,18 @@ html, body {
   }
 #player1{
     color:white;
-    width: 150px;
+    width: 200px;
     display:flex;
     justify-content: center;
 }
 
 #player2{
     color:white;
-    width: 150px;
+    width: 200px;
     display:flex;
     justify-content: center;
 }
 .score {
-    font-size: 50px;
-    font-weight: bold;
+    font-size: 75px;
 }
  

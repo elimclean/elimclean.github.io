@@ -1,0 +1,27 @@
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    background: blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+#player1{
+    color:white;
+    width: 200px;
+    display:flex;
+    justify-content: center;
+}
+
+#player2{
+    color:white;
+    width: 200px;
+    display:flex;
+    justify-content: center;
+}
+.score {
+    font-size: 75px;
+}
+ 

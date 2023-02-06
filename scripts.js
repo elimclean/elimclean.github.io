@@ -134,8 +134,8 @@ function loop() {
   
   // score
   context.font = "30px Arial";
-  context.fillText(leftScore, 200, 50);
-  context.fillText(rightScore, 560, 50);
+  context.fillText(score1, 200, 50);
+  context.fillText(score2, 560, 50);
   
   // draw ball
   context.fillRect(ball.x, ball.y, ball.width, ball.height);

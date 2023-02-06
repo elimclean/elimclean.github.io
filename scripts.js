@@ -106,7 +106,7 @@ function loop() {
        }  
        // if player 2 hits ball by player 1
        else if(ball.x < 0){
-          score2++
+          score2++;
        }
     // give some time for the player to recover before launching the ball again
     setTimeout(() => {

@@ -59,7 +59,17 @@ function loop() {
   requestAnimationFrame(loop);
   context.clearRect(0,0,canvas.width,canvas.height);
 
+	//Commented out and move to the bottom - Taitt Estes.
   // move paddles by their velocity
+  
+//Edited Code is as it will interfere with AI - Taitt Estes
+  //New Code is the AI's functions to attempt tracing the ball.
+  if(leftPaddle.y <= ball.y){
+    	 leftPaddle.dy = paddleSpeed;
+  }
+  	if(leftPaddle.y >= ball.y){
+    	 leftPaddle.dy = -paddleSpeed;
+  }  
   leftPaddle.y += leftPaddle.dy;
   rightPaddle.y += rightPaddle.dy;
 
@@ -162,15 +172,6 @@ document.addEventListener('keydown', function(e) {
   else if (e.which === 40) {
     rightPaddle.dy = paddleSpeed;
   }
-
-  // w key
-  if (e.which === 87) {
-    leftPaddle.dy = -paddleSpeed;
-  }
-  // a key
-  else if (e.which === 83) {
-    leftPaddle.dy = paddleSpeed;
-  }
 });
 
 // listen to keyboard events to stop the paddle if key is released
@@ -183,6 +184,5 @@ document.addEventListener('keyup', function(e) {
     leftPaddle.dy = 0;
   }
 });
-
 // start the game
 requestAnimationFrame(loop);

@@ -1,10 +1,10 @@
 
 const canvas = document.getElementById('game');
-const context = canvas.getContext('2d');
 const grid = 15;
 const paddleHeight = grid * 5; // 80
 const maxPaddleY = canvas.height - grid - paddleHeight;
 
+var context = canvas.getContext('2d');
 var paddleSpeed = 6;
 var ballSpeed = 5;
 var score1 = 0;
@@ -59,11 +59,14 @@ function loop() {
   requestAnimationFrame(loop);
   context.clearRect(0,0,canvas.width,canvas.height);
 
-	//Commented out and move to the bottom - Taitt Estes.
+  //add gameover tool.
+  if(score1 === 7 || score2 === 7){
+  	gameover();
+  }
+
   // move paddles by their velocity
-  
-//Edited Code is as it will interfere with AI - Taitt Estes
-  //New Code is the AI's functions to attempt tracing the ball.
+ 
+  //New Code is the BOT's functions to attempt tracing the ball. - Taitt Estes
   if(leftPaddle.y <= ball.y){
     	 leftPaddle.dy = paddleSpeed;
   }
@@ -71,6 +74,7 @@ function loop() {
     	 leftPaddle.dy = -paddleSpeed;
   }  
   leftPaddle.y += leftPaddle.dy;
+  
   rightPaddle.y += rightPaddle.dy;
 
   // prevent paddles from going through walls
@@ -186,3 +190,22 @@ document.addEventListener('keyup', function(e) {
 });
 // start the game
 requestAnimationFrame(loop);
+
+//Added Gameover function - Taitt Estes
+// Start Work here tomorrow.
+function gameover(){
+    var element = document.getElementById('GameOver').innerHTML;
+    var gameOverScreen;
+
+    gameOver = '<button></button>';
+    element.insertAdjacentHTML('afterbegin', gameOverScreen);
+ 
+  var gg = "Game Over"  
+    // score
+  context.fillStyle = 'blue';
+  context.fillRect(0, 0, 363, 293);
+  
+  context.font = '65px serif';
+  context.fillText("center-aligned", gg);
+
+}

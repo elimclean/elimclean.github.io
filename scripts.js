@@ -3,12 +3,17 @@ const canvas = document.getElementById('game');
 const grid = 15;
 const paddleHeight = grid * 5; // 80
 const maxPaddleY = canvas.height - grid - paddleHeight;
+const context = canvas.getContext('2d');
 
-var context = canvas.getContext('2d');
 var paddleSpeed = 6;
 var ballSpeed = 5;
 var score1 = 0;
 var score2 = 0;
+//Added Vars - Taitt Estes
+var gameOverScreen;
+var gg = "Game Over"; 
+var animation;
+var playAgain = "Play Again? (Y)";
 
 const leftPaddle = {
   // start in the middle of the game on the left side
@@ -56,11 +61,12 @@ function collides(obj1, obj2) {
 
 // game loop
 function loop() {
-  requestAnimationFrame(loop);
+  animation = requestAnimationFrame(loop);
   context.clearRect(0,0,canvas.width,canvas.height);
 
-  //add gameover tool.
+  //add gameover tool. - Taitt Estes
   if(score1 === 7 || score2 === 7){
+  	cancelAnimationFrame(animation);
   	gameover();
   }
 
@@ -189,23 +195,22 @@ document.addEventListener('keyup', function(e) {
   }
 });
 // start the game
-requestAnimationFrame(loop);
+animation = requestAnimationFrame(loop);
 
-//Added Gameover function - Taitt Estes
-// Start Work here tomorrow.
+//Added Gameover Function after 7 scores from either.
 function gameover(){
-    var element = document.getElementById('GameOver').innerHTML;
-    var gameOverScreen;
-
-    gameOver = '<button></button>';
-    element.insertAdjacentHTML('afterbegin', gameOverScreen);
- 
-  var gg = "Game Over"  
-    // score
-  context.fillStyle = 'blue';
-  context.fillRect(0, 0, 363, 293);
+  	context.fillStyle = 'blue';
+  	context.fillRect(91, 147, 560, 293);
   
-  context.font = '65px serif';
-  context.fillText("center-aligned", gg);
-
+  
+    context.fillStyle = 'White';
+  	context.font = '65px serif';
+  	context.fillText(gg, 230, 270);
+    context.fillText(playAgain,170,350);
+    document.addEventListener('keydown', function(e) {
+    
+  	if (e.which === 89) {
+    		location.reload();
+    	}
+	});
 }

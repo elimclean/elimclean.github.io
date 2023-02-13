@@ -1,14 +1,19 @@
 
 const canvas = document.getElementById('game');
-const context = canvas.getContext('2d');
 const grid = 15;
 const paddleHeight = grid * 5; // 80
 const maxPaddleY = canvas.height - grid - paddleHeight;
+const context = canvas.getContext('2d');
 
 var paddleSpeed = 6;
 var ballSpeed = 5;
 var score1 = 0;
 var score2 = 0;
+//Added Vars - Taitt Estes
+var gameOverScreen;
+var gg = "Game Over"; 
+var animation;
+var playAgain = "Play Again? (Y)";
 
 const leftPaddle = {
   // start in the middle of the game on the left side
@@ -56,11 +61,26 @@ function collides(obj1, obj2) {
 
 // game loop
 function loop() {
-  requestAnimationFrame(loop);
+  animation = requestAnimationFrame(loop);
   context.clearRect(0,0,canvas.width,canvas.height);
 
+  //add gameover tool. - Taitt Estes
+  if(score1 === 7 || score2 === 7){
+  	cancelAnimationFrame(animation);
+  	gameover();
+  }
+
   // move paddles by their velocity
+ 
+  //New Code is the BOT's functions to attempt tracing the ball. - Taitt Estes
+  if(leftPaddle.y <= ball.y){
+    	 leftPaddle.dy = paddleSpeed;
+  }
+  	if(leftPaddle.y >= ball.y){
+    	 leftPaddle.dy = -paddleSpeed;
+  }  
   leftPaddle.y += leftPaddle.dy;
+  
   rightPaddle.y += rightPaddle.dy;
 
   // prevent paddles from going through walls
@@ -162,15 +182,6 @@ document.addEventListener('keydown', function(e) {
   else if (e.which === 40) {
     rightPaddle.dy = paddleSpeed;
   }
-
-  // w key
-  if (e.which === 87) {
-    leftPaddle.dy = -paddleSpeed;
-  }
-  // a key
-  else if (e.which === 83) {
-    leftPaddle.dy = paddleSpeed;
-  }
 });
 
 // listen to keyboard events to stop the paddle if key is released
@@ -183,6 +194,23 @@ document.addEventListener('keyup', function(e) {
     leftPaddle.dy = 0;
   }
 });
-
 // start the game
-requestAnimationFrame(loop);
+animation = requestAnimationFrame(loop);
+
+//Added Gameover Function after 7 scores from either.
+function gameover(){
+  	context.fillStyle = 'blue';
+  	context.fillRect(91, 147, 560, 293);
+  
+  
+    context.fillStyle = 'White';
+  	context.font = '65px serif';
+  	context.fillText(gg, 230, 270);
+    context.fillText(playAgain,170,350);
+    document.addEventListener('keydown', function(e) {
+    
+  	if (e.which === 89) {
+    		location.reload();
+    	}
+	});
+}

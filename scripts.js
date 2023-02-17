@@ -15,6 +15,10 @@ var gg = "Game Over";
 var animation;
 var playAgain = "Play Again? (Y)";
 
+var wallSound = new Audio('pong.mp3');
+var gameoverSound = new Audio('Game over.mp3');
+var paddleSound = new Audio('hit.mp3');
+
 const leftPaddle = {
   // start in the middle of the game on the left side
   x: grid * 2,
@@ -67,6 +71,7 @@ function loop() {
   //add gameover tool. - Taitt Estes
   if(score1 === 7 || score2 === 7){
   	cancelAnimationFrame(animation);
+    gameoverSound.play();
   	gameover();
   }
 
@@ -97,7 +102,7 @@ function loop() {
   else if (rightPaddle.y > maxPaddleY) {
     rightPaddle.y = maxPaddleY;
   }
-
+  
   // draw paddles
   context.fillStyle = 'white';
   context.fillRect(leftPaddle.x, leftPaddle.y, leftPaddle.width, leftPaddle.height);
@@ -116,6 +121,13 @@ function loop() {
     ball.y = canvas.height - grid * 2;
     ball.dy *= -1;
   }
+
+  //sound
+  if (ball.x < 0 || ball.x > canvas.width) {
+    wallSound.play();
+    ball.vx = -ball.vx;
+  }
+  
 
   // reset ball if it goes past paddle (but only if we haven't already done so)
   if ( (ball.x < 0 || ball.x > canvas.width) && !ball.resetting) {
@@ -143,6 +155,7 @@ function loop() {
     // move ball next to the paddle otherwise the collision will happen again
     // in the next frame
     ball.x = leftPaddle.x + leftPaddle.width;
+    paddleSound.play();
   }
   else if (collides(ball, rightPaddle)) {
     ball.dx *= -1;
@@ -150,8 +163,9 @@ function loop() {
     // move ball next to the paddle otherwise the collision will happen again
     // in the next frame
     ball.x = rightPaddle.x - ball.width;
+    paddleSound.play();
   }
-  
+
   // score
   context.font = '65px serif';
   context.fillText(score1, 100, 70);

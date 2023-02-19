@@ -4,6 +4,7 @@ const grid = 15;
 const paddleHeight = grid * 5; // 80
 const maxPaddleY = canvas.height - grid - paddleHeight;
 const context = canvas.getContext('2d');
+const gameStart = document.getElementById('startScreen');
 
 var paddleSpeed = 6;
 var ballSpeed = 5;
@@ -61,6 +62,14 @@ function collides(obj1, obj2) {
          obj1.x + obj1.width > obj2.x &&
          obj1.y < obj2.y + obj2.height &&
          obj1.y + obj1.height > obj2.y;
+}
+
+function startGame(){
+  gameStart.style.display = "none";
+  canvas.style.display = "flex";
+  
+  score1 = 0;
+  score2 = 0;
 }
 
 // game loop

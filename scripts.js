@@ -5,6 +5,7 @@ const paddleHeight = grid * 5; // 80
 const maxPaddleY = canvas.height - grid - paddleHeight;
 const context = canvas.getContext('2d');
 const gameStart = document.getElementById('startScreen');
+const gameoverscreen = document.getElementById('gameover');
 
 var paddleSpeed = 6;
 var ballSpeed = 5;
@@ -14,7 +15,7 @@ var score2 = 0;
 var gameOverScreen;
 var gg = "Game Over"; 
 var animation;
-var playAgain = "Play Again? (Y)";
+//var playAgain = "Play Again? (Y)";
 
 var wallSound = new Audio('pong.mp3');
 var gameoverSound = new Audio('Game over.mp3');
@@ -66,6 +67,7 @@ function collides(obj1, obj2) {
 
 function startGame(){
   gameStart.style.display = "none";
+  gameoverscreen.style.display = "none";
   canvas.style.display = "flex";
   
   score1 = 0;
@@ -113,7 +115,7 @@ function loop() {
   }
   
   // draw paddles
-  context.fillStyle = 'white';
+  context.fillStyle = 'pink';
   context.fillRect(leftPaddle.x, leftPaddle.y, leftPaddle.width, leftPaddle.height);
   context.fillRect(rightPaddle.x, rightPaddle.y, rightPaddle.width, rightPaddle.height);
 
@@ -184,7 +186,7 @@ function loop() {
   context.fillRect(ball.x, ball.y, ball.width, ball.height);
 
   // draw walls
-  context.fillStyle = 'lightgrey';
+  context.fillStyle = 'rgb(255, 127, 80)';
   context.fillRect(0, 0, canvas.width, grid);
   context.fillRect(0, canvas.height - grid, canvas.width, canvas.height);
 
@@ -222,8 +224,10 @@ animation = requestAnimationFrame(loop);
 
 //Added Gameover Function after 7 scores from either.
 function gameover(){
-  	context.fillStyle = 'blue';
-  	context.fillRect(91, 147, 560, 293);
+    canvas.style.display = 'none';
+    gameoverscreen.style.display = 'block';
+  //	context.fillStyle = 'blue';
+  	//context.fillRect(91, 147, 560, 293);
   
   
     context.fillStyle = 'White';

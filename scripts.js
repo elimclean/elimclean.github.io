@@ -69,6 +69,7 @@ function startGame(){
   gameStart.style.display = "none";
   gameoverscreen.style.display = "none";
   canvas.style.display = "flex";
+  ballSpeed = 5;
   
   score1 = 0;
   score2 = 0;
@@ -228,7 +229,7 @@ function gameover(){
     gameoverscreen.style.display = 'block';
   //	context.fillStyle = 'blue';
   	//context.fillRect(91, 147, 560, 293);
-  
+    ballSpeed = 0;
   
     context.fillStyle = 'White';
   	context.font = '65px serif';

@@ -3,17 +3,27 @@ html, body {
     margin: 0;
   }
   body {
-    background: purple;
+    background: linear-gradient(to right, red, purple);
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  h1{
+      text-align: center;
+      color: white;
   }
 
   #game{
     display: none;
   }
 
-  button{
+  #button{
+    color:red;
+    align-items: center;
+  }
+
+  #startButton{
     background: white;
     color:black;
     border: none;
@@ -25,4 +35,8 @@ html, body {
 
   #startScreen{
     display: block;
+  }
+
+  #gameover{
+    display: none;
   }

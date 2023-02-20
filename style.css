@@ -3,26 +3,23 @@ html, body {
     margin: 0;
   }
   body {
-    background: purple;
+    background: linear-gradient(to right, red , purple);
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  #game{
+  h1{
+    text-align: center;
+    color: white;
+  }
+
+  #button{
+    color:red;
+    align-items: center;
+  }
+
+  #gameover{
     display: none;
   }
 
-  button{
-    background: white;
-    color:black;
-    border: none;
-    padding: 10px 32px;
-    font-size: 15px;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-
-  #startScreen{
-    display: block;
-  }

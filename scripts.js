@@ -1,14 +1,24 @@
 
 const canvas = document.getElementById('game');
-const context = canvas.getContext('2d');
 const grid = 15;
 const paddleHeight = grid * 5; // 80
 const maxPaddleY = canvas.height - grid - paddleHeight;
+const context = canvas.getContext('2d');
+const gameStart = document.getElementById('startScreen');
 
 var paddleSpeed = 6;
 var ballSpeed = 5;
-var score1 = document.getElementById('score1').innerHTML;
-var score2 = document.getElementById('score2').innerHTML;
+var score1 = 0;
+var score2 = 0;
+//Added Vars - Taitt Estes
+var gameOverScreen;
+var gg = "Game Over"; 
+var animation;
+var playAgain = "Play Again? (Y)";
+
+var wallSound = new Audio('pong.mp3');
+var gameoverSound = new Audio('Game over.mp3');
+var paddleSound = new Audio('hit.mp3');
 
 const leftPaddle = {
   // start in the middle of the game on the left side
@@ -54,13 +64,37 @@ function collides(obj1, obj2) {
          obj1.y + obj1.height > obj2.y;
 }
 
+function startGame(){
+  gameStart.style.display = "none";
+  canvas.style.display = "flex";
+  
+  score1 = 0;
+  score2 = 0;
+}
+
 // game loop
 function loop() {
-  requestAnimationFrame(loop);
+  animation = requestAnimationFrame(loop);
   context.clearRect(0,0,canvas.width,canvas.height);
 
+  //add gameover tool. - Taitt Estes
+  if(score1 === 7 || score2 === 7){
+  	cancelAnimationFrame(animation);
+    gameoverSound.play();
+  	gameover();
+  }
+
   // move paddles by their velocity
+ 
+  //New Code is the BOT's functions to attempt tracing the ball. - Taitt Estes
+  if(leftPaddle.y <= ball.y){
+    	 leftPaddle.dy = paddleSpeed;
+  }
+  	if(leftPaddle.y >= ball.y){
+    	 leftPaddle.dy = -paddleSpeed;
+  }  
   leftPaddle.y += leftPaddle.dy;
+  
   rightPaddle.y += rightPaddle.dy;
 
   // prevent paddles from going through walls
@@ -77,7 +111,7 @@ function loop() {
   else if (rightPaddle.y > maxPaddleY) {
     rightPaddle.y = maxPaddleY;
   }
-
+  
   // draw paddles
   context.fillStyle = 'white';
   context.fillRect(leftPaddle.x, leftPaddle.y, leftPaddle.width, leftPaddle.height);
@@ -97,17 +131,24 @@ function loop() {
     ball.dy *= -1;
   }
 
+  //sound
+  if (ball.x < 0 || ball.x > canvas.width) {
+    wallSound.play();
+    ball.vx = -ball.vx;
+  }
+  
+
   // reset ball if it goes past paddle (but only if we haven't already done so)
   if ( (ball.x < 0 || ball.x > canvas.width) && !ball.resetting) {
     ball.resetting = true;
     // if player 1 hits ball past player 2
-    if(ball.x > canvas.width){
-    score1 = parseInt(document.getElementById('score1').innerHTML) + 1;
-    }  
-    // if player 2 hits ball by player 1
-    elseif(ball.x < 0){
-    score2 = parseInt(document.getElementById('score2').innerHTML) + 1;
-    }
+       if(ball.x > canvas.width){
+          score1++;
+       }  
+       // if player 2 hits ball by player 1
+       else if(ball.x < 0){
+          score2++;
+       }
     // give some time for the player to recover before launching the ball again
     setTimeout(() => {
       ball.resetting = false;
@@ -123,6 +164,7 @@ function loop() {
     // move ball next to the paddle otherwise the collision will happen again
     // in the next frame
     ball.x = leftPaddle.x + leftPaddle.width;
+    paddleSound.play();
   }
   else if (collides(ball, rightPaddle)) {
     ball.dx *= -1;
@@ -130,8 +172,14 @@ function loop() {
     // move ball next to the paddle otherwise the collision will happen again
     // in the next frame
     ball.x = rightPaddle.x - ball.width;
+    paddleSound.play();
   }
 
+  // score
+  context.font = '65px serif';
+  context.fillText(score1, 100, 70);
+  context.fillText(score2, 660, 70);
+  
   // draw ball
   context.fillRect(ball.x, ball.y, ball.width, ball.height);
 
@@ -157,15 +205,6 @@ document.addEventListener('keydown', function(e) {
   else if (e.which === 40) {
     rightPaddle.dy = paddleSpeed;
   }
-
-  // w key
-  if (e.which === 87) {
-    leftPaddle.dy = -paddleSpeed;
-  }
-  // a key
-  else if (e.which === 83) {
-    leftPaddle.dy = paddleSpeed;
-  }
 });
 
 // listen to keyboard events to stop the paddle if key is released
@@ -178,6 +217,23 @@ document.addEventListener('keyup', function(e) {
     leftPaddle.dy = 0;
   }
 });
-
 // start the game
-requestAnimationFrame(loop);
+animation = requestAnimationFrame(loop);
+
+//Added Gameover Function after 7 scores from either.
+function gameover(){
+  	context.fillStyle = 'blue';
+  	context.fillRect(91, 147, 560, 293);
+  
+  
+    context.fillStyle = 'White';
+  	context.font = '65px serif';
+  	context.fillText(gg, 230, 270);
+    context.fillText(playAgain,170,350);
+    document.addEventListener('keydown', function(e) {
+    
+  	if (e.which === 89) {
+    		location.reload();
+    	}
+	});
+}

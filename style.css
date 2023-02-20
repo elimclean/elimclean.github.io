@@ -3,25 +3,26 @@ html, body {
     margin: 0;
   }
   body {
-    background: blue;
+    background: purple;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-#player1{
-    color:white;
-    width: 200px;
-    display:flex;
-    justify-content: center;
-}
 
-#player2{
-    color:white;
-    width: 200px;
-    display:flex;
-    justify-content: center;
-}
-.score {
-    font-size: 75px;
-}
- 
+  #game{
+    display: none;
+  }
+
+  button{
+    background: white;
+    color:black;
+    border: none;
+    padding: 10px 32px;
+    font-size: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  #startScreen{
+    display: block;
+  }

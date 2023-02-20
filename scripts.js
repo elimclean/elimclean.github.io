@@ -20,6 +20,7 @@ var animation;
 var wallSound = new Audio('pong.mp3');
 var gameoverSound = new Audio('Game over.mp3');
 var paddleSound = new Audio('hit.mp3');
+var speedMultiplier = .5;
 
 const leftPaddle = {
   // start in the middle of the game on the left side
@@ -65,12 +66,19 @@ function collides(obj1, obj2) {
          obj1.y + obj1.height > obj2.y;
 }
 
-function startGame(){
+function startGame(a){
   gameStart.style.display = "none";
   gameoverscreen.style.display = "none";
   canvas.style.display = "flex";
-  ballSpeed = 5;
-  
+  if(a == 1){
+    speedMultiplier = .6;
+  }
+  if(a == 2){
+    speedMultiplier = .75;
+  }
+  if(a == 3){
+    speedMultiplier = .9;
+  }
   score1 = 0;
   score2 = 0;
 }
@@ -90,11 +98,11 @@ function loop() {
   // move paddles by their velocity
  
   //New Code is the BOT's functions to attempt tracing the ball. - Taitt Estes
-  if(leftPaddle.y <= ball.y){
-    	 leftPaddle.dy = paddleSpeed;
+  if(leftPaddle.y < ball.y){
+    leftPaddle.dy = speedMultiplier*paddleSpeed;
   }
-  	if(leftPaddle.y >= ball.y){
-    	 leftPaddle.dy = -paddleSpeed;
+  	if(leftPaddle.y > ball.y){
+      leftPaddle.dy = -speedMultiplier*paddleSpeed;
   }  
   leftPaddle.y += leftPaddle.dy;
   

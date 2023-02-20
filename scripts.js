@@ -4,7 +4,7 @@ const grid = 15;
 const paddleHeight = grid * 5; // 80
 const maxPaddleY = canvas.height - grid - paddleHeight;
 const context = canvas.getContext('2d');
-const gameStart = document.getElementById('startScreen');
+const gameoverscreen = document.getElementById('gameover');
 
 var paddleSpeed = 6;
 var ballSpeed = 5;
@@ -14,11 +14,7 @@ var score2 = 0;
 var gameOverScreen;
 var gg = "Game Over"; 
 var animation;
-var playAgain = "Play Again? (Y)";
-
-var wallSound = new Audio('pong.mp3');
-var gameoverSound = new Audio('Game over.mp3');
-var paddleSound = new Audio('hit.mp3');
+//var playAgain = "Play Again? (Y)";
 
 const leftPaddle = {
   // start in the middle of the game on the left side
@@ -64,14 +60,6 @@ function collides(obj1, obj2) {
          obj1.y + obj1.height > obj2.y;
 }
 
-function startGame(){
-  gameStart.style.display = "none";
-  canvas.style.display = "flex";
-  
-  score1 = 0;
-  score2 = 0;
-}
-
 // game loop
 function loop() {
   animation = requestAnimationFrame(loop);
@@ -80,7 +68,6 @@ function loop() {
   //add gameover tool. - Taitt Estes
   if(score1 === 7 || score2 === 7){
   	cancelAnimationFrame(animation);
-    gameoverSound.play();
   	gameover();
   }
 
@@ -111,9 +98,9 @@ function loop() {
   else if (rightPaddle.y > maxPaddleY) {
     rightPaddle.y = maxPaddleY;
   }
-  
+
   // draw paddles
-  context.fillStyle = 'white';
+  context.fillStyle = 'pink';
   context.fillRect(leftPaddle.x, leftPaddle.y, leftPaddle.width, leftPaddle.height);
   context.fillRect(rightPaddle.x, rightPaddle.y, rightPaddle.width, rightPaddle.height);
 
@@ -130,13 +117,6 @@ function loop() {
     ball.y = canvas.height - grid * 2;
     ball.dy *= -1;
   }
-
-  //sound
-  if (ball.x < 0 || ball.x > canvas.width) {
-    wallSound.play();
-    ball.vx = -ball.vx;
-  }
-  
 
   // reset ball if it goes past paddle (but only if we haven't already done so)
   if ( (ball.x < 0 || ball.x > canvas.width) && !ball.resetting) {
@@ -164,7 +144,6 @@ function loop() {
     // move ball next to the paddle otherwise the collision will happen again
     // in the next frame
     ball.x = leftPaddle.x + leftPaddle.width;
-    paddleSound.play();
   }
   else if (collides(ball, rightPaddle)) {
     ball.dx *= -1;
@@ -172,9 +151,8 @@ function loop() {
     // move ball next to the paddle otherwise the collision will happen again
     // in the next frame
     ball.x = rightPaddle.x - ball.width;
-    paddleSound.play();
   }
-
+  
   // score
   context.font = '65px serif';
   context.fillText(score1, 100, 70);
@@ -184,7 +162,7 @@ function loop() {
   context.fillRect(ball.x, ball.y, ball.width, ball.height);
 
   // draw walls
-  context.fillStyle = 'lightgrey';
+  context.fillStyle = 'rgb(255, 127, 80)'; 
   context.fillRect(0, 0, canvas.width, grid);
   context.fillRect(0, canvas.height - grid, canvas.width, canvas.height);
 
@@ -222,9 +200,11 @@ animation = requestAnimationFrame(loop);
 
 //Added Gameover Function after 7 scores from either.
 function gameover(){
-  	context.fillStyle = 'blue';
-  	context.fillRect(91, 147, 560, 293);
-  
+  canvas.style.display = 'none';
+  gameoverscreen.style.display = 'block';
+  //gameStart.style.display = 'none';
+  //context.fillStyle = 'rgb(255, 182, 193)';
+  //context.fillRect(91, 147, 560, 293);
   
     context.fillStyle = 'White';
   	context.font = '65px serif';

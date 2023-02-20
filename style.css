@@ -1,44 +1,65 @@
 
 html, body {
-    height: 100%;
-    margin: 0;
-  }
-  body {
-    background: linear-gradient(to right, red, purple);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  height: 100%;
+  margin: 0;
+}
+body {
+  background: linear-gradient(to right, red, purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  h1{
-      text-align: center;
-      color: white;
-  }
+h1{
+    text-align: center;
+    color: white;
+}
 
-  #game{
-    display: none;
-  }
+#game{
+  display: none;
+}
 
-  #button{
-    color:red;
-    align-items: center;
-  }
+#button{
+  color:red;
+  align-items: center;
+}
 
-  #startButton{
-    background: white;
-    color:black;
-    border: none;
-    padding: 10px 32px;
-    font-size: 15px;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-
-  #startScreen{
-    display: block;
-  }
-
-  #gameover{
-    display: none;
-  }
-
+#am{
+  background: white;
+  color:black;
+  border: none;
+  padding: 10px 32px;
+  font-size: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+#inter{
+  background: white;
+  color:black;
+  border: none;
+  padding: 10px 32px;
+  font-size: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+#expert{
+  background: white;
+  color:black;
+  border: none;
+  padding: 10px 32px;
+  font-size: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+#startScreen{
+  display: block;
+}
+#inter{
+  display: block;
+}
+#expert{
+  display: block;
+}
+#gameover{
+  display: none;
+}

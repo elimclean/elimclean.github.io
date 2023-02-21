@@ -70,6 +70,8 @@ function startGame(a){
   gameStart.style.display = "none";
   gameoverscreen.style.display = "none";
   canvas.style.display = "flex";
+  ballSpeed = 5;
+	
   if(a == 1){
     speedMultiplier = .6;
   }

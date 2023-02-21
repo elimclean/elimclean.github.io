@@ -8,7 +8,7 @@ const gameStart = document.getElementById('startScreen');
 const gameoverscreen = document.getElementById('gameover');
 
 var paddleSpeed = 6;
-var ballSpeed = 0;
+var ballSpeed = 5;
 var score1 = 0;
 var score2 = 0;
 //Added Vars - Taitt Estes
